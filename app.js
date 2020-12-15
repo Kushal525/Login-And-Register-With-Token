@@ -8,8 +8,11 @@ const port = 3000
 
 app.use(express.json())
 
+//Register New User 
 app.post('/user/register', async (req, res) => {
     const user = new User(req.body)
+
+    //Every user must have unique email and Phone number
     try{
         const email= await User.findOne({"email": req.body.email})
         const ph_no = await User.findOne({"ph_no" : req.body.ph_no})
@@ -24,6 +27,7 @@ app.post('/user/register', async (req, res) => {
     }
 })
 
+//Login Using email id and password
 app.post('/user/login', async (req, res) => {
     try{
         const user = await User.findByCredentials(req.body.email, req.body.password)
@@ -36,6 +40,7 @@ app.post('/user/login', async (req, res) => {
     }
 })
 
+//Authenticate user can Logout using token 
 app.post('/user/logout', auth, async (req, res) => {
     try {
         req.user.tokens = []
