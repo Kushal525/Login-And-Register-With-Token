@@ -8,6 +8,10 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.send("Hello AWS")
+})
+
 //Register New User 
 app.post('/user/register', async (req, res) => {
     const user = new User(req.body)
